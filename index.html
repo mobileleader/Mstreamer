@@ -1,0 +1,151 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Mstreamercloudedition by mobileleader</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Mstreamercloudedition</h1>
+        <p>Mstreamer Cloud Edition provided by Mobileleader </p>
+
+        <p class="view"><a href="https://github.com/mobileleader/MstreamerCloudEdition">View the Project on GitHub <small>mobileleader/MstreamerCloudEdition</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/mobileleader/MstreamerCloudEdition/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/mobileleader/MstreamerCloudEdition/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/mobileleader/MstreamerCloudEdition">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <p>Mcoder Cloud Edition provided by Mobileleader</p>
+
+<p>View the Project on GitHub mobileleader/McoderCloudEdition</p>
+
+<p>Download
+ZIP File
+Download
+TAR Ball
+View On
+GitHub
+Mcoder Cloud Edition</p>
+
+<p>"Mocder Cloud Edition" is a transcoding software that support various audio and video formats and convert to runs on devices. It offers REST APIs to transcoding operations and maintenance services. And Using predefined presets easily make encoding options.</p>
+
+<ul>
+<li>Mcoder Cloud Edition is cloud-based multimedia encoding solution.</li>
+<li>Support various input &amp; output format and codec.</li>
+<li>Available using REST Api.</li>
+</ul>
+
+<p>Environment Setting</p>
+
+<p>To change the port number for Rest API server. you must Update in /home/ec2-user/Mcoder/Mcoder.xml</p>
+
+<p>
+    
+        8081
+    
+    ...
+</p>
+
+<p>Mount S3 bucket(optional)</p>
+
+<p>Edit a config file for storing your keys (you can check them out under AWS Menu -&gt; Your Account -&gt; Security Credentials)</p>
+
+<p>touch /etc/passwd-s3fs &amp;&amp; chmod 640 /etc/passwd-s3fs &amp;&amp; echo 'AccessKey:SecretKey' &gt; /etc/passwd-s3fs
+If you dont want to leave any trace of your secret key in your shell history, use a text editor to edit the file rather than echoing it.
+Create a directory for mounting the S3 filesystem and mount it. Note that you can mount the s3fs anywhere you like:
+/usr/bin/s3fs bucketname /mnt/mountpoint</p>
+
+<p>Check it is woking correctly:
+grep s3fs /etc/mtab
+Rest APIs</p>
+
+<p>The API provides request for Transcoding. For more information about Rest APIs please read the following document.
+McoderRestAPIs.pdf</p>
+
+<p>Using X264 library</p>
+
+<p>x264 Video Codec is a software tool allowing you to encode H.264/MPEG-4 AVC video streams. If you want to encode, you can install following command.</p>
+
+<h1>
+<a id="wget-httpmirroryandexrumirrorsftpvideolanorgx264snapshotsx264-snapshot-20140925-2245-stabletarbz2" class="anchor" href="#wget-httpmirroryandexrumirrorsftpvideolanorgx264snapshotsx264-snapshot-20140925-2245-stabletarbz2" aria-hidden="true"><span class="octicon octicon-link"></span></a>wget <a href="http://mirror.yandex.ru/mirrors/ftp.videolan.org/x264/snapshots/x264-snapshot-20140925-2245-stable.tar.bz2">http://mirror.yandex.ru/mirrors/ftp.videolan.org/x264/snapshots/x264-snapshot-20140925-2245-stable.tar.bz2</a>
+</h1>
+
+<h1>
+<a id="tar--xvf-x264-snapshot-20140925-2245-stabletarbz2" class="anchor" href="#tar--xvf-x264-snapshot-20140925-2245-stabletarbz2" aria-hidden="true"><span class="octicon octicon-link"></span></a>tar -xvf x264-snapshot-20140925-2245-stable.tar.bz2</h1>
+
+<h1>
+<a id="cd-x264-snapshot-20140925-2245-stable" class="anchor" href="#cd-x264-snapshot-20140925-2245-stable" aria-hidden="true"><span class="octicon octicon-link"></span></a>cd x264-snapshot-20140925-2245-stable</h1>
+
+<h1>
+<a id="configure---enable-static---enable-shared" class="anchor" href="#configure---enable-static---enable-shared" aria-hidden="true"><span class="octicon octicon-link"></span></a>./configure --enable-static --enable-shared</h1>
+
+<h1>
+<a id="make" class="anchor" href="#make" aria-hidden="true"><span class="octicon octicon-link"></span></a>make</h1>
+
+<h1>
+<a id="make-install" class="anchor" href="#make-install" aria-hidden="true"><span class="octicon octicon-link"></span></a>make install</h1>
+
+<h1>
+<a id="ldconfig" class="anchor" href="#ldconfig" aria-hidden="true"><span class="octicon octicon-link"></span></a>ldconfig</h1>
+
+<p>ffmpeg rebuild with x264</p>
+
+<h1>
+<a id="wget-httpffmpegorgreleasesffmpeg-113targz" class="anchor" href="#wget-httpffmpegorgreleasesffmpeg-113targz" aria-hidden="true"><span class="octicon octicon-link"></span></a>wget <a href="http://ffmpeg.org/releases/ffmpeg-1.1.3.tar.gz">http://ffmpeg.org/releases/ffmpeg-1.1.3.tar.gz</a>
+</h1>
+
+<h1>
+<a id="tar--xvf-ffmpeg-113targz" class="anchor" href="#tar--xvf-ffmpeg-113targz" aria-hidden="true"><span class="octicon octicon-link"></span></a>tar -xvf ffmpeg-1.1.3.tar.gz</h1>
+
+<h1>
+<a id="cd-ffmpeg-113" class="anchor" href="#cd-ffmpeg-113" aria-hidden="true"><span class="octicon octicon-link"></span></a>cd ffmpeg-1.1.3</h1>
+
+<h1>
+<a id="configure---enable-shared---disable-static---enable-memalign-hack---enable-libx264---enable-libmp3lame---enable-libvo-aacenc---enable-libvpx---enable-libtheora---enable-libvorbis---enable-version3-working_directory" class="anchor" href="#configure---enable-shared---disable-static---enable-memalign-hack---enable-libx264---enable-libmp3lame---enable-libvo-aacenc---enable-libvpx---enable-libtheora---enable-libvorbis---enable-version3-working_directory" aria-hidden="true"><span class="octicon octicon-link"></span></a>./configure --enable-shared --disable-static --enable-memalign-hack --enable-libx264 --enable-libmp3lame --enable-libvo-aacenc --enable-libvpx --enable-libtheora --enable-libvorbis --enable-version3 WORKING_DIRECTORY</h1>
+
+<h1>
+<a id="make-1" class="anchor" href="#make-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>make</h1>
+
+<h1>
+<a id="make-install-1" class="anchor" href="#make-install-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>make install</h1>
+
+<h1>
+<a id="ldconfig-1" class="anchor" href="#ldconfig-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>ldconfig</h1>
+
+<p>License</p>
+
+<p>You can use x264 library, for H.264 encoding. and you must check x264 license for commercial usage.
+<a href="http://x264licensing.com/">http://x264licensing.com/</a></p>
+
+<p>Also you can see summary of AVC/H.264 license terms at <a href="http://www.mpegla.com/main/programs/AVC/Documents/AVC_TermsSummary.pdf">http://www.mpegla.com/main/programs/AVC/Documents/AVC_TermsSummary.pdf</a></p>
+
+<p>Support or Contact</p>
+
+<p>if you're looking for more help or have a question to ask, please contact us. If you're in need of technical support, please contact us. <a href="mailto:mcoder_support@mobileleader.com">mcoder_support@mobileleader.com</a></p>
+
+<p>This project is maintained by mobileleader</p>
+
+<p>Hosted on GitHub Pages — Theme by orderedlist</p>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/mobileleader">mobileleader</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
