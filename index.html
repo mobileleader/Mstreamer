@@ -32,10 +32,10 @@
 <h3>
 <a id="welcome-to-github-pages" class="anchor" href="#welcome-to-github-pages" aria-hidden="true"><span class="octicon octicon-link"></span></a>Mstreamer Cloud Edition</h3>
 
-<p>"Mstreamer Cloud Edition" is a streaming software that support various protocal. It offers REST APIs to streaming operations and maintenance services.<br><br>
+<p>"Mstreamer Cloud Edition" is a streaming server that supports RTSP/RTP, HTTP and HLS("HTTP Live Streaming") protocols. It can stream media file that stored in Amazon S3. It offers RESTful APIs to streaming operations and maintenance services.<br><br>
 
 - Mstreamer Cloud Edition is cloud-based multimedia streaming solution.<br>
-- Support various protocal.<br>
+- Supports RTSP/RTP, HTTP and HLS("HTTP Live Streaming") protocols.<br>
 - Available using REST Api.</p>
 
 <h3>
@@ -45,12 +45,38 @@
 you must Update in /home/ec2-user/Mstreamer/Mstreamer.xml</p>
 
 <pre>
-<xmp><AppConfig>
-	<server>
+<xmp><appConfig>
+	<restServer>
 		<port>8081</port>
-	</server>
+	</restServer>
 	...
-</AppConfig></xmp>
+</appConfig></xmp>
+</pre>
+
+<p>To change the port number for HTTP server.
+you must Update in /home/ec2-user/Mstreamer/Mstreamer.xml</p>
+
+<pre>
+<xmp><appConfig>
+	...
+	<httpServer>
+		<port>8080</port>
+	</httpServer>
+	...
+</appConfig></xmp>
+</pre>
+
+<p>To change the port number for RTSP server.
+you must Update in /home/ec2-user/Mstreamer/Mstreamer.xml</p>
+
+<pre>
+<xmp><appConfig>
+	...
+	<rtspServer>
+		<port>8080</port>
+	</rtspServer>
+	...
+</appConfig></xmp>
 </pre>
 
 <h3>
