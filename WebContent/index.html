@@ -1,0 +1,209 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Msip Api Test Page! ( Stream server for lunux )</title>
+<style type="text/css">
+
+/** global css **/
+* {
+	margin: 0;
+	padding: 0;
+}
+
+a {
+	text-decoration: none;
+}
+
+header {
+	height: 80px;
+	margin: 0 auto;
+	font-size: 40px;
+	color: black;
+	background-color: white;
+}
+
+textarea {
+	height: 120px;
+}
+
+textarea:focus {
+	background: white;
+	height: 400px;
+}
+
+#firstdiv {
+	height: 50px;
+}
+</style>
+
+<script src="http://code.jquery.com/jquery-1.7.0.min.js"></script>
+<script type="text/javascript">
+	jQuery.support.cors = true;
+	var ServletIp = 'localhost'; // Rest Server IP address
+	var ServletPort = '9999'; // Rest Server Port Number
+
+	window.onload = function() {
+		$('#RestServerIp').val('localhost');
+		$('#RestServerPort').val('8081');
+	}
+
+	function changeRestServerIp(ip, port) {
+		$('#JobCreateReqUrl').val('http://' + ip + ':' + port + '/v1/jobs');
+		$('#JobListReqUrl').val('http://' + ip + ':' + port	+ '/v1/jobs?status=Progressing&page=TestMessage');
+		$('#JobReadReqUrl').val('http://' + ip + ':' + port + '/v1/jobs/MyJobId');
+		$('#JobCancelReqUrl').val('http://' + ip + ':' + port + '/v1/jobs/CancelJobId');
+	}
+
+	function requestPost(responseForm, requestBody, requestUrl) {
+		$.ajax({
+			url : encodeURI("http://" + ServletIp + ":" + ServletPort
+					+ "/MotieApiTestPage/motie?url=" + requestUrl),
+			contentType : "application/json; charset=utf-8",
+			data : requestBody,
+			type : 'POST',
+			success : function(data) {
+				responseForm.val(data);
+			},
+			error : function(data, status, er) {
+				alert("status : " + status + "\n error msg :" + er);
+			}
+		});
+	};
+
+	function requestGet(responseForm, requestUrl) {
+		$.ajax({
+			url : encodeURI("http://" + ServletIp + ":" + ServletPort
+					+ "/MotieApiTestPage/motie"),
+			type : 'GET',
+			data : 'url=' + requestUrl,
+			success : function(data) {
+				/* 				data.replaceAll("\r\n", "<br>");
+				 data.replaceAll("\u0020", "&nbsp"); */
+				responseForm.val(data);
+			},
+			error : function(data, status, er) {
+				alert("status : " + status + "\n error msg :" + er);
+			}
+		});
+	};
+
+	function requestDelete(responseForm, requestUrl) {
+		$.ajax({
+			url : encodeURI("http://" + ServletIp + ":" + ServletPort
+					+ "/MotieApiTestPage/motie?url=" + requestUrl),
+			type : 'DELETE',
+			success : function(data) {
+				responseForm.val(data);
+			},
+			error : function(data, status, er) {
+				alert("status : " + status + "\n error msg :" + er);
+			}
+		});
+	};
+
+	$(document).ready(function() {
+
+		$('#RestServerBtn').click(function() {
+			var ip = $('#RestServerIp').val();
+			var port = $('#RestServerPort').val();
+			changeRestServerIp(ip, port);
+		});
+
+		$('#JobCreateReq').click(function() {
+			var requestBody = $('#JobCreateReqBody').val();
+			var requestUrl = $('#JobCreateReqUrl').val();
+			requestPost($("#JobCreateResult"), requestBody, requestUrl);
+		});
+		$('#JobListReq').click(function() {
+			var requestUrl = $('#JobListReqUrl').val();
+			requestGet($("#JobListResult"), requestUrl);
+		});
+		$('#JobReadReq').click(function() {
+			var requestUrl = $('#JobReadReqUrl').val();
+			requestGet($("#JobReadResult"), requestUrl);
+		});
+		$('#JobCancelReq').click(function() {
+			var requestUrl = $('#JobCancelReqUrl').val();
+			requestDelete($("#JobCancelResult"), requestUrl);
+		});		
+	});
+</script>
+</head>
+<body>
+
+	<header>Stream server API for linux</header>
+
+	<div id="firstdiv">
+		Rest Server Ip: <input type="text" id="RestServerIp"
+			style="width: 100px;"> port:<input type="text"
+			id="RestServerPort" style="width: 40px;"> <input
+			type="button" id="RestServerBtn" value="Regist">
+	</div>
+
+	<div>
+		<a id="section1"></a>
+		<h3>1. Job Create Request Example (Post)</h3>
+		<ul>
+			<li>Request<br> <input type="text" id="JobCreateReqUrl"
+				style="width: 750px;"> <input type="button"
+				id="JobCreateReq" value="send"> <textarea
+					id="JobCreateReqBody" style="width: 800px;">
+{
+    "Input":{
+        "Url":"test.mp4"
+    },
+    "Outputs":{
+        "StreamType":"rtsp"
+    }
+}
+</textarea>
+			</li>
+			<li>Response<br> <textarea id="JobCreateResult"
+					style="width: 800px;"></textarea>
+			</li>
+		</ul>
+	</div>
+	<div>
+		<a id="section2"></a>
+		<h3>2. Job List Request Example (Get)</h3>
+		<ul>
+			<li>Request<br> <input type="text" id="JobListReqUrl"
+				style="width: 750px;"> <input type="button" id="JobListReq"
+				value="send">
+			</li>
+			<li>Response<br> <textarea id="JobListResult"
+					style="width: 800px;"></textarea>
+			</li>
+		</ul>
+	</div>
+	<div>
+		<a id="section3"></a>
+		<h3>3. Job Read Request Example (Get)</h3>
+		<ul>
+			<li>Request<br> <input type="text" id="JobReadReqUrl"
+				style="width: 750px;"> <input type="button" id="JobReadReq"
+				value="send">
+			</li>
+			<li>Response<br> <textarea id="JobReadResult"
+					style="width: 800px;"></textarea>
+			</li>
+		</ul>
+	</div>
+	<div>
+		<a id="section4"></a>
+		<h3>4. Job Cancel Request Example (Get)</h3>
+		<ul>
+			<li>Request<br> <input type="text" id="JobCancelReqUrl"
+				style="width: 750px;"> <input type="button"
+				id="JobCancelReq" value="send">
+			</li>
+			<li>Response<br> <textarea id="JobCancelResult"
+					style="width: 800px;"></textarea>
+			</li>
+		</ul>
+	</div>
+</body>
+</html>
